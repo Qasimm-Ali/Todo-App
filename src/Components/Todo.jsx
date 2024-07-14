@@ -1,12 +1,16 @@
 import { useRef } from "react";
 import { useState } from "react";
+import TodoLists from "./TodoLists";
 export default function Todo() {
-
+let result ;
   const [Todo, setTodo] = useState([])
   const ref = useRef();
   const handleAdd = () => {
     let result = ref.current.value
-    setTodo([...Todo , result])
+    if(result.trim()!== ""){
+      setTodo([...Todo , result])
+    }
+    ref.current.value=""
   }
 
   return (
@@ -20,7 +24,7 @@ export default function Todo() {
       </div>
         <div className="flex flex-wrap gap-3 my-3 ">
         {Todo.map((item, ind) => (
-            <div className="relative w-[20rem] h-[10rem] border-[2.5px]  border-purple-600 rounded-md overflow-hidden overflow-y-auto  ">{item} <button className="bg-purple-400 text-white w-[3.5rem] h-[2.1rem] font-medium   rounded-md  hover:bg-purple-500 absolute bottom-1 right-2 ">delete</button></div>
+          <TodoLists item={item} ind={ind} Todo={Todo} setTodo={setTodo} />
           ))}
           </div>
     </>
